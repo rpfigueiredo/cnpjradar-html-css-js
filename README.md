@@ -1,7 +1,8 @@
-<div style="text-align: center;">
-  <h1>CNPJ Radar: Consulta de Empresas</h1>
+<p align="center">
   <img src="./assets/img/logo01.png" alt="Confluence" style="max-width: 200px; margin:30px">
-</div>
+</p>
+
+<h1 align="center">CNPJ Radar: Consulta de Empresas</h1>
 
 O CNPJ Radar é uma ferramenta desenvolvida com HTML, CSS e JavaScript para consulta de informações de empresas a partir do CNPJ. Ele permite verificar dados cadastrais e informações sobre sócios de forma rápida e eficiente.
 
@@ -36,7 +37,7 @@ Certifique-se de ter instalado em sua máquina:
 Clonando o Repositório:
 
 ```bash
-git clone git@github.com:rpfigueiredo/cnpjradar-html-css-js.git
+git clone https://github.com/rpfigueiredo/cnpjradar-html-css-js.git
 ```
 
 Executando o Projeto:
