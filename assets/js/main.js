@@ -104,6 +104,9 @@ $(document).ready(function () {
             }
           });
           partnersContainer.show();
+        } else {
+          // Caso não haja sócios, limpar completamente os detalhes
+          $('#partnersDetails').empty();
         }
 
         buttonContainer.show();
@@ -174,24 +177,24 @@ $(document).ready(function () {
     };
 
     // Limpar dados dos sócios antes de adicionar novos
-  $('#partnersDetails .result-fields').each(function (index) {
-    const partnerName = $(`#partnerName${index}`).val();
-    const partnerCPF = $(`#partnerCPF${index}`).val();
-    const partnerEntryDate = $(`#partnerEntryDate${index}`).val();;
+    $('#partnersDetails .result-fields').each(function (index) {
+      const partnerName = $(`#partnerName${index}`).val();
+      const partnerCPF = $(`#partnerCPF${index}`).val();
+      const partnerEntryDate = $(`#partnerEntryDate${index}`).val();;
 
-    if (partnerName && partnerCPF && partnerEntryDate) {
-      const partner = {
-        nome_socio: partnerName,
-        cnpj_cpf_do_socio: partnerCPF,
-        data_entrada_sociedade: partnerEntryDate
-      };
-      formData.socios.push(partner);
-    }
+      if (partnerName && partnerCPF && partnerEntryDate) {
+        const partner = {
+          nome_socio: partnerName,
+          cnpj_cpf_do_socio: partnerCPF,
+          data_entrada_sociedade: partnerEntryDate
+        };
+        formData.socios.push(partner);
+      }
+    });
+
+    console.log('Dados submetidos:', formData);
+    alert('Dados submetidos com sucesso!');
   });
-
-  console.log('Dados submetidos:', formData);
-  alert('Dados submetidos com sucesso!');
-});
 
   // Gerar arquivo TXT
   $('#generateTxtButton').on('click', function () {
@@ -210,12 +213,12 @@ $(document).ready(function () {
     txtContent += `Sócios:\n`;
     const partners = $('#partnersDetails .result-fields');
     let hasPartners = false;
-  
+
     partners.each(function (index) {
       const partnerName = $(`#partnerName${index}`).val();
       const partnerCPF = $(`#partnerCPF${index}`).val();
       const partnerEntryDate = $(`#partnerEntryDate${index}`).val();
-  
+
       if (partnerName && partnerCPF && partnerEntryDate) {
         txtContent += `Nome do Sócio: ${partnerName}\n`;
         txtContent += `CPF/CNPJ do Sócio: ${partnerCPF}\n`;
@@ -224,11 +227,11 @@ $(document).ready(function () {
         hasPartners = true;
       }
     });
-  
+
     if (!hasPartners) {
       txtContent += `Não há sócios cadastrados.\n`;
     }
-  
+
     const blob = new Blob([txtContent], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -240,7 +243,7 @@ $(document).ready(function () {
     URL.revokeObjectURL(url);
   });
 
-  
+
   function formatDate(dateString) {
     if (!dateString) return '';
     const [year, month, day] = dateString.split('-');
@@ -263,5 +266,22 @@ function incrementarConsultas() {
 
 // Incrementa o número de consultas a cada 2 segundos
 setInterval(incrementarConsultas, 2000);
+
+
+// Rolagem suave com offset para links de âncora
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const target = document.querySelector(this.getAttribute('href'));
+      const offset = 100; // Ajuste este valor conforme necessário
+
+      window.scrollTo({
+          top: target.offsetTop - offset,
+          behavior: 'smooth'
+      });
+  });
+});
+
 
 
