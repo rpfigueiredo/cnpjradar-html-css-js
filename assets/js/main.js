@@ -85,30 +85,32 @@ $(document).ready(function () {
           $('#partnersDetails').empty();
           data.qsa.forEach((partner, index) => {
             const partnerHtml = `
-                            <div class="result-fields">
-                                <label for="partnerName${index}">Nome do Sócio:</label>
-                                <input type="text" id="partnerName${index}" class="result-field" value="${partner.nome_socio || 'Não disponível'}" />
-                            </div>
-                            <div class="result-fields">
-                                <label for="partnerCPF${index}">CPF/CNPJ do Sócio:</label>
-                                <input type="text" id="partnerCPF${index}" class="result-field" value="${partner.cnpj_cpf_do_socio || 'Não disponível'}" />
-                            </div>
-                            <div class="result-fields">
-                                <label for="partnerEntryDate${index}">Data de Entrada:</label>
-                                <input type="text" id="partnerEntryDate${index}" class="result-field" value="${formatDate(partner.data_entrada_sociedade) || 'Não disponível'}" />
-                            </div>
-                        `;
+              <div class="result-fields">
+                <label for="partnerName${index}">Nome do Sócio:</label>
+                <input type="text" id="partnerName${index}" class="result-field" value="${partner.nome_socio || 'Não disponível'}" />
+              </div>
+              <div class="result-fields">
+                <label for="partnerCPF${index}">CPF/CNPJ do Sócio:</label>
+                <input type="text" id="partnerCPF${index}" class="result-field" value="${partner.cnpj_cpf_do_socio || 'Não disponível'}" />
+              </div>
+              <div class="result-fields">
+                <label for="partnerEntryDate${index}">Data de Entrada:</label>
+                <input type="text" id="partnerEntryDate${index}" class="result-field" value="${formatDate(partner.data_entrada_sociedade) || 'Não disponível'}" />
+              </div>
+            `;
             $('#partnersDetails').append(partnerHtml);
             if (index < data.qsa.length - 1) {
               $('#partnersDetails').append('<hr>');
             }
           });
-          partnersContainer.show();
         } else {
-          // Caso não haja sócios, limpar completamente os detalhes
+          // Caso não haja sócios, exibir uma mensagem informativa
           $('#partnersDetails').empty();
+          $('#partnersDetails').append('<p>Não há sócios disponíveis.</p>');
         }
-
+        
+        // Mostrar o contêiner dos sócios e o contêiner dos botões
+        partnersContainer.show();
         buttonContainer.show();
       })
       .catch(error => {
